@@ -1,0 +1,62 @@
+This repository documents the process of setting up an EC2 instance on AWS using Ubuntu as the operating system (AMI) to host a website. The project covers the following steps:
+Launching an EC2 instance
+Installing Apache2 web server
+Setting up a website
+Checking the server status and accessing the website via the public IP address
+
+**Project Overview**
+The goal of this project was to create an EC2 instance, configure it to serve a website using the Apache2 web server, and verify that the website is accessible from the public IP address.
+Tools & Services Used
+Amazon Web Services (AWS)
+Ubuntu (AMI)
+Apache2 Web Server
+HTTP Protocol (Port 80)
+
+**Creating an EC2 Instance**
+Step 1: Launch an EC2 Instance
+Sign in to your AWS Management Console.
+Navigate to EC2 Dashboard.
+Click on Launch Instance.
+In the Choose an Amazon Machine Image (AMI) section, select the Ubuntu AMI (e.g., Ubuntu 20.04 LTS).
+In the Choose an Instance Type section, select the appropriate instance type (e.g., t2.micro for testing).
+Configure instance details, storage, and security group.
+Ensure the security group allows inbound traffic on port 80 (HTTP) and port 22 (SSH).
+Review your configurations and click Launch.
+Select or create a new key pair to access your EC2 instance and click Launch Instances.
+
+**Access the EC2 Instance via SSH**
+Once your instance is running, connect to it using SSH with the following command:
+ssh -i /path/to/your-key.pem ubuntu@your-ec2-public-ip
+
+**Installing Apache2**
+Step 1: Update the Ubuntu Instance
+Update the package lists for the most recent versions of the repositories:
+sudo apt update
+
+**Step 2: Install Apache2 Web Server**
+Install Apache2 using the following command:
+sudo apt install apache2 -y
+
+**Step 3: Start and Enable Apache2 Service**
+Start the Apache2 service and enable it to start on boot:
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+**4. Setting up a Website**
+Step 1: Create a Simple HTML Website
+You can place your website files in the Apache default directory, which is /var/www/html. Create a basic index.html file:
+ /var/www/html/index.html
+Step 2: Set Proper Permissions
+Ensure Apache has the proper permissions to serve the files:
+sudo chown -R www-data:www-data /var/www/html
+
+**5. Accessing the Website**
+Step 1: Verify Apache2 Status
+To check if Apache2 is running properly, use the following command:
+sudo systemctl status apache2
+You should see an output indicating that the Apache service is active and running.
+
+**Step 2: Access the Website via Public IP**
+Using your EC2 instance’s public IP address, open a web browser and visit:
+Copy
+http://your-ec2-public-ip
